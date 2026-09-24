@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Swipewalk – free accessibility scanner for Android and iOS apps</title>
+  <meta name="google-site-verification" content="Eon2UT67xRTWg1y9YnDZeDdWS-1f78KDXfDLrlAAeFU" />
+  <meta name="description" content="Free, open-source accessibility scanner for running Android and iOS apps. Maps automated findings to WCAG 2.2; manual testing is still required.">
+  <link rel="canonical" href="https://swipewalk.github.io/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta property="og:title" content="Swipewalk">
+  <meta property="og:description" content="Free, open-source accessibility scanner for running Android and iOS apps.">
+  <meta property="og:url" content="https://swipewalk.github.io/">
+  <meta property="og:image" content="https://swipewalk.github.io/social-preview.png">
+  <meta property="og:image:alt" content="Swipewalk logo and the text: Accessibility scanner for running Android and iOS apps. WCAG 2.2 findings, predicted screen-reader output, free and open source.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image:alt" content="Swipewalk logo and the text: Accessibility scanner for running Android and iOS apps. WCAG 2.2 findings, predicted screen-reader output, free and open source.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Swipewalk",
+    "description": "Free, open-source accessibility scanner for running Android and iOS apps. Maps automated findings to WCAG 2.2; manual testing is still required.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "macOS",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "url": "https://swipewalk.github.io/",
+    "sameAs": [
+      "https://github.com/swipewalk/swipewalk",
+      "https://www.nuget.org/packages/Swipewalk"
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --bg: #ffffff; --text: #1b1f24; --muted: #57606a; --link: #0a58ca;
+      --panel: #f6f8fa; --border: #d0d7de; --focus: #0a58ca;
+      color-scheme: light dark;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #0d1117; --text: #e6edf3; --muted: #9da7b3; --link: #6cb6ff;
+              --panel: #161b22; --border: #30363d; --focus: #6cb6ff; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text);
+           font: 1.0625rem/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+    main, header, footer { max-width: 46rem; margin: 0 auto; padding: 0 1rem; }
+    header { padding-top: 3rem; }
+    h1 { font-size: 2.5rem; margin: 0 0 .25rem; letter-spacing: -.02em; }
+    h2 { font-size: 1.35rem; margin: 2.5rem 0 .5rem; }
+    .lead { font-size: 1.2rem; color: var(--muted); margin: 0; }
+    a { color: var(--link); text-underline-offset: .15em; }
+    a:focus-visible, summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 2px; }
+    pre { background: var(--panel); border: 1px solid var(--border); border-radius: 6px;
+          padding: .75rem 1rem; overflow-x: auto; font-size: .95rem; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .note { background: var(--panel); border: 1px solid var(--border); border-left: 4px solid var(--link);
+            border-radius: 6px; padding: .75rem 1rem; margin: 1.5rem 0; }
+    img { max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 6px; }
+    header img { border: 0; display: block; margin-bottom: .75rem; }
+    ul { padding-left: 1.25rem; }
+    .skip { position: absolute; left: -999px; }
+    .skip:focus { left: 1rem; top: 1rem; background: var(--bg); padding: .5rem; }
+    footer { color: var(--muted); font-size: .9rem; padding-top: 3rem; padding-bottom: 3rem; }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header>
+    <img src="icon.svg" width="72" height="72" alt="">
+    <h1>Swipewalk</h1>
+    <p class="lead">A free, open-source accessibility scanner for <strong>running</strong> Android and iOS apps, with first-class .NET MAUI support.</p>
+  </header>
+
+  <main id="main">
+    <p>Swipewalk reads a running app through the platform's accessibility layer, the same layer screen readers use. It checks what users actually get: rendered text contrast, touch target sizes, missing or misleading names, and text that breaks at large text sizes. Each finding is mapped to WCAG 2.2 success criteria, and the report shows the order and wording a screen reader would likely announce (predicted, not recorded).</p>
+
+    <div class="note">
+      <strong>Not a compliance verdict.</strong> Automated checks find only some accessibility issues. A report with no findings doesn't show that an app meets WCAG or any law; manual testing with assistive technology is still required.
+    </div>
+
+    <div class="note">
+      <strong>Use a test device.</strong> On a physical phone, the large-text check temporarily changes the phone's text size and restores it afterwards. If a run is interrupted, the next run or <code>swipewalk doctor</code> tries to restore it, and says how to change it back by hand if it can't. Avoid running the large-text check on a phone someone relies on every day.
+    </div>
+
+    <h2>Install</h2>
+    <p>Needs the .NET 10 SDK on macOS, plus Android platform-tools (for Android) or Xcode (for iOS).</p>
+    <pre><code>dotnet tool install -g Swipewalk
+swipewalk doctor --platform android
+swipewalk scan --platform android --large-text --out report</code></pre>
+    <p>Or download the Mac app (signed and notarized, macOS 12 or later) from the
+       <a href="https://github.com/swipewalk/swipewalk/releases">releases page</a>: it runs the same scans in a
+       window, with a device list, live progress, the report and a comparison with earlier runs.</p>
+
+    <h2>What a report looks like</h2>
+    <img src="report-ios.png" width="1280" height="1560"
+         alt="A Swipewalk report for a sample app on the iPhone Simulator: 6 WCAG issues, 5 items needing review and 2 platform advisories, plus a summary of WCAG 2.2 A/AA coverage. The app screenshot is marked with numbered boxes, and each finding lists its WCAG criterion, such as 1.1.1 Non-text Content, and the laws and standards it is relevant to.">
+
+    <h2>What it does</h2>
+    <ul>
+      <li>Scans one screen, or scans each new screen while you use the app; it can also rescan each at a large text size (Android and iOS, including physical phones, where it changes the phone's text size and restores it afterwards -- on an iPhone through the Settings app; use a test device). Screens that weren't scanned are listed as a manual task.</li>
+      <li>Measures text contrast from screenshot pixels, not from source code.</li>
+      <li>Keeps WCAG issues apart from platform guidelines (Apple 44 pt, Android 48 dp touch targets).</li>
+      <li>Labels findings with the standards they are relevant to: ADA Title II, Section 508, EN 301 549, UK public sector regulations. This is not legal advice.</li>
+      <li>Compares runs: new, still found, and no longer found.</li>
+      <li>Includes Apple's own accessibility audit on iOS and Google's Accessibility Test Framework on Android.</li>
+      <li>On Android, can also drive TalkBack itself over a screen's elements (opt-in) and report differences from the predicted transcript for you to check, running locally with no cloud service.</li>
+    </ul>
+
+    <h2>Learn more</h2>
+    <ul>
+      <li><a href="https://github.com/swipewalk/swipewalk">Source code and documentation on GitHub</a></li>
+      <li><a href="https://github.com/swipewalk/swipewalk/blob/main/docs/user-guide.md">User guide: how to scan an app, read a report and check what automation cannot</a></li>
+      <li><a href="https://github.com/swipewalk/swipewalk/blob/main/docs/case-study.md">Case study: what it finds in a sample app and in Microsoft's .NET MAUI samples, and what it misses</a></li>
+      <li><a href="https://github.com/swipewalk/swipewalk/blob/main/docs/limitations.md">Known limitations</a></li>
+      <li><a href="https://github.com/swipewalk/swipewalk/blob/main/DISCLAIMER.md">Disclaimer and terms of use</a> · <a href="https://github.com/swipewalk/swipewalk/blob/main/PRIVACY.md">Privacy</a></li>
+    </ul>
+  </main>
+
+  <footer>
+    Swipewalk is free software under the Apache License 2.0. It runs on your computer, makes no network requests of its own and has no telemetry; platform tools it runs (such as xcodebuild when signing for an iPhone) may contact their vendors.
+  </footer>
+</body>
+</html>
