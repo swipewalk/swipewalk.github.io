@@ -99,28 +99,28 @@ swipewalk scan --platform android --large-text --out report</code></pre>
 
     <h2>What a report looks like</h2>
     <img src="report-ios.png" width="1280" height="1900"
-         alt="A Swipewalk report for a sample app on the iPhone Simulator: 6 WCAG issues, 4 items needing review and 2 platform advisories, plus a summary of WCAG 2.2 A/AA coverage. The app screenshot is marked with numbered boxes, and each finding lists its WCAG criterion, such as 1.1.1 Non-text Content, and the laws and standards it is relevant to.">
+         alt="A Swipewalk report for a sample app on the iPhone Simulator at normal text size: 6 WCAG issues, 4 items needing review and 2 platform advisories, plus a summary of WCAG 2.2 A/AA coverage. The app screenshot is marked with numbered boxes, and each finding lists its WCAG criterion, such as 1.1.1 Non-text Content, and the laws and standards it is relevant to.">
 
     <h2>What it does</h2>
     <ul>
       <li>Scans one screen, or scans each new screen while you use the app; it can also rescan each at a large text size (Android and iOS, including physical phones, where it changes the phone's text size and restores it afterwards -- on an iPhone through the Settings app; use a test device). Screens that weren't scanned are listed as a manual task.</li>
-      <li>Rescans a screen in the device's other dark/light appearance and other orientation, including on a physical iPhone, so a contrast failure or layout problem that only shows up in one theme or one orientation isn't missed. A further, opt-in check takes a few more captures a few seconds apart to flag content that changes on its own.</li>
+      <li>Rescans a screen in the device's other dark/light appearance and other orientation (<code>scan</code> only for now), including on a physical iPhone where its own settings allow, so a contrast failure or layout problem that only shows up in one theme or one orientation isn't missed. A further, opt-in check takes a few more captures a few seconds apart to flag content that changes on its own.</li>
       <li>Measures text contrast from screenshot pixels, not from source code.</li>
       <li>Keeps WCAG issues apart from platform guidelines (Apple 44 pt, Android 48 dp touch targets).</li>
       <li>Labels findings with the standards they are relevant to: ADA Title II, Section 508, EN 301 549, UK public sector regulations, plus each standard's own clauses beyond WCAG, and opt-in mappings for researched US states and other countries. This is not legal advice.</li>
       <li>Compares runs: new, still found, and no longer found.</li>
       <li>Includes Apple's own accessibility audit on iOS and Google's Accessibility Test Framework on Android.</li>
       <li>On Android, can also drive TalkBack itself over a screen's elements (opt-in) and report differences from the predicted transcript for you to check, running locally with no cloud service. On iOS, can read what Xcode's Accessibility Inspector reports for each element instead of turning VoiceOver on.</li>
-      <li>Groups findings that likely share one root cause (the same color, style or naming pattern) so one change can fix several at once, and states who each finding affects, in plain language. Reports record the scanned app's own version, so progress lines up with releases.</li>
+      <li>Groups findings that likely share one root cause (the same measured colors, touch-target size or identifier pattern) -- one change may fix several of them, but every instance is still listed -- and states who each finding affects, in plain language. Reports record the scanned app's own version, so progress lines up with releases.</li>
       <li>Exports a saved run's findings as one Markdown ticket per issue, a CSV for bulk import, a self-contained HTML report, or a tagged PDF for printing -- for handing off to an issue tracker or a colleague.</li>
     </ul>
 
     <h2>What it doesn't do</h2>
     <ul>
-      <li>No overlays: it reads the accessibility layer an app already exposes, not a visual layer added on top.</li>
+      <li>No overlays: Swipewalk adds nothing to your app and doesn't claim to fix it at runtime; it reports what the app's accessibility layer exposes so the app itself can be fixed.</li>
       <li>No certification or legal advice: standards are shown for reference only, never as a compliance verdict.</li>
       <li>No automatic code changes: every fix is left to the developer to make and review.</li>
-      <li>Not a replacement for testing with disabled people: automated checks and guided steps still need a person using assistive technology.</li>
+      <li>Not a replacement for testing with disabled people: automated checks find only some issues, and many criteria still need manual testing, ideally including people who use assistive technology every day.</li>
     </ul>
 
     <h2>Learn more</h2>
