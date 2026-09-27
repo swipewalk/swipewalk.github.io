@@ -113,6 +113,7 @@ swipewalk scan --platform android --large-text --out report</code></pre>
       <li>On Android, can also drive TalkBack itself over a screen's elements (opt-in) and report differences from the predicted transcript for you to check, running locally with no cloud service. On iOS, can read what Xcode's Accessibility Inspector reports for each element instead of turning VoiceOver on.</li>
       <li>Groups findings that likely share one root cause (the same measured colors, touch-target size or identifier pattern) -- one change may fix several of them, but every instance is still listed -- and states who each finding affects, in plain language. Reports record the scanned app's own version, so progress lines up with releases.</li>
       <li>Exports a saved run's findings as one Markdown ticket per issue, a CSV for bulk import, a self-contained HTML report, or a tagged PDF for printing -- for handing off to an issue tracker or a colleague.</li>
+      <li>Lets a team mark a finding as false positive, won't fix or accepted risk, with a required reason -- never "fixed". The report moves it into a "Triaged by your team" group (the total still counts it), and exports carry the mark, without changing the underlying scan data.</li>
     </ul>
 
     <h2>What it doesn't do</h2>
