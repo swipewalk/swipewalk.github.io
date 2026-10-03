@@ -94,9 +94,11 @@
     <pre><code>dotnet tool install -g Swipewalk
 swipewalk doctor --platform android
 swipewalk scan --platform android --large-text --out report</code></pre>
+    <p>If the install fails because your NuGet settings list a feed it can't reach, add <code>--ignore-failed-sources</code>. If the terminal then can't find <code>swipewalk</code>, add <code>$HOME/.dotnet/tools</code> to your PATH (the <a href="https://github.com/swipewalk/swipewalk#install">README</a> has the exact line).</p>
     <p>Or download the Mac app (signed and notarized, macOS 12 or later) from the
        <a href="https://github.com/swipewalk/swipewalk/releases">releases page</a>: it runs the same scans in a
        window, with a device list, live progress, the report and a comparison with earlier runs.</p>
+    <p>To see a scan before trying your own app, download the made-up sample app (an Android .apk and an iOS Simulator .zip) from the same releases page and scan it on an emulator or Simulator; the <a href="https://github.com/swipewalk/swipewalk/blob/main/docs/user-guide.md#try-swipewalk-on-the-sample-app">user guide</a> has the steps.</p>
 
     <h2>What a report looks like</h2>
     <img src="report-ios.png" width="1280" height="1900"
@@ -108,7 +110,7 @@ swipewalk scan --platform android --large-text --out report</code></pre>
       <li>Rescans a screen in the device's other dark/light appearance and other orientation (<code>scan</code> only for now), including on a physical iPhone where its own settings allow, so a contrast failure or layout problem that only shows up in one theme or one orientation isn't missed. A further opt-in check (also <code>scan</code> only for now) takes a few more captures a few seconds apart and flags content that changed on its own. The Mac app offers these under More checks on New scan.</li>
       <li>Measures text contrast from screenshot pixels, not from source code.</li>
       <li>Keeps WCAG issues apart from platform guidelines (Apple's 44&times;44 pt default and 28&times;28 pt stated minimum, Android's 48&times;48 dp touch targets).</li>
-      <li>Labels findings with the standards they are relevant to: ADA Title II, Section 508, EN 301 549, UK public sector regulations, plus each standard's own clauses beyond WCAG, and the US states and other countries Swipewalk has mapped; each issue names the first few it is relevant to and how many more. This is not legal advice.</li>
+      <li>Labels findings with the standards they are relevant to: ADA Title II, Section 508, EN 301 549, UK public sector regulations, plus each standard's own clauses beyond WCAG, and the US states and other countries Swipewalk has mapped; each issue names the first few it is relevant to and how many more. In the Mac app you can find one by typing part of its name or a place, and list the ones you care about first. This is not legal advice.</li>
       <li>Compares runs: new, still found, and no longer found. <code>swipewalk compare</code> and the Mac app can compare any two runs.</li>
       <li>Includes Apple's own accessibility audit on iOS and Google's Accessibility Test Framework on Android. On Android debug builds, an opt-in <code>--web-audit</code> adds a deeper audit of a WebView's own page with axe-core; on the Android emulator, web content inside an app is scanned either way (verified there only; on a physical phone it isn't scanned by default).</li>
       <li>On Android, can also drive TalkBack itself over a screen's elements (opt-in with the command-line tool's <code>--screen-reader</code>; on by default in the Mac app) and report differences from the predicted transcript for you to check, running locally with no cloud service. On iOS, can read what Xcode's Accessibility Inspector reports for each element instead of turning VoiceOver on.</li>
@@ -117,6 +119,9 @@ swipewalk scan --platform android --large-text --out report</code></pre>
       <li>Exports a saved run's findings as one Markdown ticket per issue, a CSV for bulk import, a self-contained HTML report, a tagged PDF for printing, or a draft Accessibility Conformance Report for a person to review. Saved runs group by app and version, and you can combine several scans of one version into one report, choosing which scans go in -- the report covers only the screens in the scans you choose.</li>
       <li>Shows fix examples in the app's own framework -- .NET MAUI, native Android (Views, Jetpack Compose), native iOS (UIKit, SwiftUI), Flutter, React Native and hybrid web. Outside .NET MAUI and the earlier generic native examples they are written from each framework's own documentation and not yet tried in a real app of that framework. Optionally, <code>--source</code> points a finding at a likely line in your own .NET MAUI, native Android, native iOS, React Native or Flutter project, read locally and never uploaded; it has been tested only on Swipewalk's sample apps and small made-up projects, so check the line it names.</li>
       <li>Lets a team mark a finding as false positive, won't fix or accepted risk, with a required reason -- never "fixed". The report moves it into a "Triaged by your team" group (the total still counts it), and exports carry the mark, without changing the underlying scan data; the Mac app carries a mark forward into the app's next run when it is clearly the same finding.</li>
+      <li>Shares a saved run as one <code>.swipewalk</code> file (screenshots and triage marks optional; not encrypted; signed by default with a key kept on your computer) that someone else opens with <code>swipewalk import</code> or the Mac app, after the file has been checked. A signature shows that the file hasn't changed since it was signed and which key signed it, not who made it.</li>
+      <li>Has a preview extension for VS Code, downloaded from the releases page, that marks each finding on the source line it likely comes from, read from a saved run. It is read-only, makes no network calls and sends no telemetry; so far it has been tested on macOS only and not yet with a screen reader.</li>
+      <li>Removes its own helper apps from a device when you ask (<code>swipewalk helpers remove</code>, or the Mac app's Devices page), and can save a scrubbed diagnostic report from its short local log for a bug report (<code>swipewalk diagnostics</code>); nothing is sent anywhere.</li>
     </ul>
 
     <h2>What it doesn't do</h2>
@@ -132,7 +137,7 @@ swipewalk scan --platform android --large-text --out report</code></pre>
       <li><a href="https://github.com/swipewalk/swipewalk">Documentation, downloads and issue tracker on GitHub</a></li>
       <li><a href="https://github.com/swipewalk/swipewalk/blob/main/docs/user-guide.md">User guide: how to scan an app, read a report and check what automation cannot</a></li>
       <li><a href="https://github.com/swipewalk/swipewalk/blob/main/docs/case-study.md">Case study: what it finds in a sample app and in Microsoft's .NET MAUI samples, and what it misses</a></li>
-      <li><a href="https://github.com/swipewalk/swipewalk/blob/main/docs/limitations.md">Known limitations</a></li>
+      <li><a href="https://github.com/swipewalk/swipewalk/blob/main/docs/limitations.md">Known limitations</a> · <a href="https://github.com/swipewalk/swipewalk/blob/main/docs/accessibility-statement.md">The Mac app's own accessibility statement, with its known gaps</a></li>
       <li><a href="https://github.com/swipewalk/swipewalk/blob/main/DISCLAIMER.md">Disclaimer and terms of use</a> · <a href="https://github.com/swipewalk/swipewalk/blob/main/PRIVACY.md">Privacy</a></li>
     </ul>
   </main>
