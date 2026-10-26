@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Swipewalk demo</title>
+  <meta name="description" content="A one-minute silent demo of Swipewalk scanning a sample app on an Android emulator and an iOS Simulator, with a text description of every scene.">
+  <link rel="canonical" href="https://swipewalk.github.io/demo.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta property="og:title" content="Swipewalk demo">
+  <meta property="og:description" content="A one-minute silent demo of Swipewalk scanning a sample app on an Android emulator and an iOS Simulator.">
+  <meta property="og:url" content="https://swipewalk.github.io/demo.html">
+  <meta property="og:image" content="https://swipewalk.github.io/demo/poster.png">
+  <style>
+    :root {
+      --bg: #ffffff; --text: #1b1f24; --muted: #57606a; --link: #0a58ca;
+      --panel: #f6f8fa; --border: #d0d7de; --focus: #0a58ca;
+      color-scheme: light dark;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #0d1117; --text: #e6edf3; --muted: #9da7b3; --link: #6cb6ff;
+              --panel: #161b22; --border: #30363d; --focus: #6cb6ff; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text);
+           font: 1.0625rem/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+    main, header, footer { max-width: 46rem; margin: 0 auto; padding: 0 1rem; }
+    header { padding-top: 3rem; }
+    h1 { font-size: 2.5rem; margin: 0 0 .25rem; letter-spacing: -.02em; }
+    h2 { font-size: 1.35rem; margin: 2.5rem 0 .5rem; }
+    .lead { font-size: 1.2rem; color: var(--muted); margin: 0; }
+    a { color: var(--link); text-underline-offset: .15em; }
+    a:focus-visible, summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 2px; }
+    pre { background: var(--panel); border: 1px solid var(--border); border-radius: 6px;
+          padding: .75rem 1rem; overflow-x: auto; font-size: .95rem; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .note { background: var(--panel); border: 1px solid var(--border); border-left: 4px solid var(--link);
+            border-radius: 6px; padding: .75rem 1rem; margin: 1.5rem 0; }
+    img { max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 6px; }
+    header img { border: 0; display: block; margin-bottom: .75rem; }
+    ul { padding-left: 1.25rem; }
+    .skip { position: absolute; left: -999px; }
+    .skip:focus { left: 1rem; top: 1rem; background: var(--bg); padding: .5rem; }
+    video { display: block; width: 100%; max-width: 960px; height: auto; background: #000; border-radius: 6px; }
+    ol li { margin-bottom: .5rem; }
+    nav { margin-top: 1rem; }
+    footer { color: var(--muted); font-size: .9rem; padding-top: 3rem; padding-bottom: 3rem; }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header>
+    <img src="icon.svg" width="72" height="72" alt="">
+    <h1>Swipewalk demo</h1>
+    <nav aria-label="Site"><a href="index.html">Back to the Swipewalk home page</a></nav>
+  </header>
+
+  <main id="main">
+    <p id="video-note">A text version of every scene is below the video.</p>
+    <video controls preload="metadata" playsinline poster="demo/poster.png" src="demo/swipewalk-demo.mp4" aria-describedby="video-note">
+      <p>Your browser can't play this video. <a href="demo/swipewalk-demo.mp4">Download it (MP4)</a>, or read the description below.</p>
+    </video>
+    <p>No sound. About 1 minute.</p>
+    <p><a href="demo/swipewalk-demo.mp4">Download the video (MP4, about 4 MB)</a></p>
+
+    <div class="note">
+      The Android part was recorded on an emulator and the iOS part on a Simulator, both scanning Swipewalk's made-up sample app. Parts that were sped up are labelled on screen ("Sped up" with the factor). The report frames show the saved HTML report, displayed outside the app. Automated checks find only some issues; manual testing is still required.
+    </div>
+
+    <h2 id="scenes-heading">What the video shows</h2>
+    <p>This list is a text version of the video.</p>
+    <ol>
+      <li><strong>0:00-0:02.</strong> The Swipewalk desktop app's New scan page. An Android emulator is chosen and the sample app's package name, org.swipewalk.buggyapp, is entered.</li>
+      <li><strong>0:02-0:05.</strong> The scan is started. The Progress panel shows "Scanning... step 1 of 3".</li>
+      <li><strong>0:05-0:32.</strong> The Android emulator during a real scan run with <code>swipewalk scan --platform android --package org.swipewalk.buggyapp --screen-reader --large-text --orientation both</code>. The phone is on the left and the current step on the right:
+        <ul>
+          <li>0:05-0:07, real time: Swipewalk reads the screen over adb.</li>
+          <li>0:07-0:19, sped up 1.5 times: Swipewalk moves TalkBack's focus to each control and captures what TalkBack says. TalkBack is silent while this runs, and Swipewalk does not tap or type. A green focus box appears briefly on controls, for example the search button and the email button.</li>
+          <li>0:19-0:25, sped up 2.5 times: the text size is set to 200% and the screen is captured again.</li>
+          <li>0:25-0:32, sped up 2 times: the emulator rotates to landscape, the screen is captured again, and it rotates back.</li>
+        </ul></li>
+      <li><strong>0:32-0:36.</strong> The report for that scan: "Automated checks found 6 WCAG issues", 9 items needing review and 4 platform advisories, with a note that manual testing is still required.</li>
+      <li><strong>0:36-0:41.</strong> One finding: the search button has no accessible name. It shows a close-up screenshot, who is affected, and WCAG 1.1.1 and 4.1.2.</li>
+      <li><strong>0:41-0:47.</strong> The screen-reader tab: what TalkBack said for each control, next to Swipewalk's prediction. Control 7 was spoken as "btnCancelPayment" where Swipewalk predicted "Unlabeled, Button".</li>
+      <li><strong>0:47-0:56.</strong> The iOS Simulator (iPhone 17 Pro) during a real scan run with <code>swipewalk scan --platform ios --bundle-id org.swipewalk.buggyapp --large-text</code>. The screen is captured together with Apple's accessibility audit (sped up 2.5 times), the text size is set to the largest accessibility size, about 235% (sped up 2 times), and then the text size is put back (sped up 2.5 times).</li>
+      <li><strong>0:56-1:00.</strong> The iOS report, zoomed in: the same finding (the search button has no accessible name, with who is affected) and its "Also reported by Apple accessibility audit" tag. The caption reads "The iOS report: some findings are also reported by Apple's accessibility audit."</li>
+      <li><strong>1:00-1:03.</strong> A closing card: "Swipewalk. Scans running Android and iOS apps. Automated checks find some issues; manual testing is still required." and the address github.com/swipewalk/swipewalk.</li>
+    </ol>
+
+    <p><a href="index.html">Back to the Swipewalk home page</a></p>
+  </main>
+
+  <footer>
+    Swipewalk is free to use under the <a href="https://github.com/swipewalk/swipewalk/blob/main/LICENSE">Swipewalk License</a>. It runs on your computer, makes no network requests of its own and has no telemetry; platform tools it runs may contact their vendors.
+  </footer>
+</body>
+</html>
